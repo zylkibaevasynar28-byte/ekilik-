@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Екілік санау жүйесі — интерактивті оқу сайты</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--ink:#172033;--muted:#667085;--accent:#4f46e5;--accent2:#06b6d4;--ok:#16a34a;--bad:#dc2626;--line:#e5e7eb}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#eef2ff,#f8fafc 55%,#ecfeff);color:var(--ink)}
+header{background:linear-gradient(120deg,#312e81,#4f46e5,#0891b2);color:#fff;padding:28px 20px;position:sticky;top:0;z-index:5;box-shadow:0 8px 25px #0002}
+.wrap{max-width:1100px;margin:auto}.top{display:flex;justify-content:space-between;gap:20px;align-items:center}.badge{background:#ffffff25;padding:8px 12px;border-radius:999px;font-size:13px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}nav button,.btn{border:0;border-radius:12px;padding:10px 14px;background:#ffffff18;color:#fff;cursor:pointer;font-weight:700}nav button:hover{background:#ffffff35}
+main{padding:28px 16px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 10px 30px #1720330b;margin-bottom:18px}
+h1{margin:0 0 8px;font-size:32px}h2{margin-top:0;color:#312e81}h3{color:#3730a3}.muted{color:var(--muted)}.rule{font-size:21px;font-weight:800;letter-spacing:.5px;background:#eef2ff;padding:15px;border-radius:14px;text-align:center}
+table{width:100%;border-collapse:collapse;margin:12px 0}th,td{padding:11px;border-bottom:1px solid var(--line);text-align:center}th{background:#f8fafc}
+.example{font-family:monospace;font-size:22px;background:#111827;color:#fff;border-radius:14px;padding:16px;white-space:pre;text-align:center}
+.quiz .option{display:block;width:100%;text-align:left;background:#f8fafc;color:var(--ink);border:2px solid var(--line);padding:13px;margin:9px 0;border-radius:12px;cursor:pointer}.option:hover{border-color:#818cf8}.correct{border-color:var(--ok)!important;background:#f0fdf4!important}.wrong{border-color:var(--bad)!important;background:#fef2f2!important}
+.feedback{font-weight:700;margin-top:10px;min-height:24px}.progress{height:12px;background:#e5e7eb;border-radius:99px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;transition:.3s}
+input{padding:12px;border:2px solid var(--line);border-radius:12px;font-size:17px;width:100%;max-width:280px}.btn2{border:0;background:var(--accent);color:#fff;padding:12px 17px;border-radius:12px;cursor:pointer;font-weight:700}.btn2:hover{filter:brightness(.95)}
+.tab{display:none}.tab.active{display:block}.score{font-size:30px;font-weight:900;color:#312e81}.pill{display:inline-block;background:#ecfeff;color:#155e75;border-radius:999px;padding:6px 10px;font-size:13px;margin:3px}
+footer{text-align:center;padding:30px;color:var(--muted)}
+@media(max-width:600px){h1{font-size:25px}.top{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="top"><div><div class="badge">Интерактивті оқу сайты</div><h1>Екілік санау жүйесі</h1><div>Қосу және азайту ережелері • түсіндіру • жаттығу • тест</div></div><div class="score" id="score" style="color:white">0 ұпай</div></div>
+<nav>
+<button onclick="showTab('learn')">📘 Оқу</button><button onclick="showTab('add')">➕ Қосу</button><button onclick="showTab('sub')">➖ Азайту</button><button onclick="showTab('practice')">🎯 Жаттығу</button><button onclick="showTab('test')">🧠 Тест</button>
+</nav></div></header>
+<main class="wrap">
+<section id="learn" class="tab active">
+<div class="card"><h2>Негізгі ұғымдар</h2>
+<p><b>Тасымалдау</b> — бір разрядтағы қосынды 1-ден асса, 1 саны келесі разрядқа өтеді.</p>
+<p><b>Қарыз алу</b> — кіші саннан үлкен санды азайтқанда, жоғарғы разрядтан 1 бірлік алынады.</p>
+<div class="rule">Екілік жүйеде тек 0 және 1 цифрлары қолданылады.</div>
+</div>
+<div class="grid">
+<div class="card"><h3>Қосу кестесі</h3><table><tr><th>A</th><th>B</th><th>A + B</th></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>10</td></tr></table><p class="rule">1 + 1 = 10</p></div>
+<div class="card"><h3>Азайту кестесі</h3><table><tr><th>A</th><th>B</th><th>A − B</th></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>1</td></tr></table><p class="rule">10 − 1 = 1</p></div>
+</div>
+<div class="card"><h2>Есте сақта!</h2><p>Қосу оңнан солға қарай орындалады. 1 + 1 болғанда ағымдағы разрядқа 0 жазылып, 1 келесі разрядқа тасымалданады.</p><p>Азайтуда 0 − 1 орындау мүмкін емес болса, жоғарғы разрядтан қарыз аламыз.</p></div>
+</section>
+
+<section id="add" class="tab">
+<div class="card"><h2>➕ Екілік сандарды қосу</h2><p>Қосу ондық жүйедегідей баған түрінде, оңнан солға қарай орындалады.</p>
+<div class="example">  101
++ 010
+------
+  111</div>
+<p><span class="pill">1-қадам</span> 1 + 0 = 1</p><p><span class="pill">2-қадам</span> 0 + 1 = 1</p><p><span class="pill">3-қадам</span> 1 + 0 = 1</p>
+</div>
+<div class="card"><h3>Тасымалдау арқылы мысал</h3><div class="example">  1011
++ 0101
+-------
+ 10000</div><p>1 + 1 = 10: 0 жазылады, 1 келесі разрядқа тасымалданады. Бірнеше тасымал қатарынан келуі мүмкін.</p></div>
+<div class="card quiz"><h3>Өзіңді тексер</h3><p><b>1 + 1 екілік жүйеде неге тең?</b></p>
+<button class="option" onclick="answer(this,true,1)">A) 11</button><button class="option" onclick="answer(this,false,1)">B) 2</button><button class="option" onclick="answer(this,false,1)">C) 10</button><div class="feedback" id="f1"></div></div>
+</section>
+
+<section id="sub" class="tab">
+<div class="card"><h2>➖ Екілік сандарды азайту</h2><p>Азайту да оңнан солға қарай орындалады. Егер азайғыштағы разрядта 0 болып, одан 1 азайту керек болса, жоғарғы разрядтан қарыз аламыз.</p>
+<div class="example">  111
+- 101
+------
+  010</div><p>1 − 1 = 0, 1 − 0 = 1, 1 − 1 = 0.</p></div>
+<div class="card"><h3>Қарыз алу арқылы</h3><p>Екілік жүйеде қарызға алынған 1 бірлік төменгі разрядта <b>2</b> ретінде есептеледі.</p><div class="example">  1010
+- 0111
+-------
+  0011</div><p>Нөлдер арқылы қарыз алу кезінде бірнеше разрядты бірінен кейін бірін өзгерту қажет болуы мүмкін.</p></div>
+<div class="card quiz"><h3>Түсінгеніңді тексер</h3><p><b>0 − 1 жағдайында не істейміз?</b></p>
+<button class="option" onclick="answer(this,true,2)">A) Жоғарғы разрядтан 1 қарыз аламыз</button><button class="option" onclick="answer(this,false,2)">B) 2-ні жай ғана жазамыз</button><button class="option" onclick="answer(this,false,2)">C) Есепті тоқтатамыз</button><div class="feedback" id="f2"></div></div>
+</section>
+
+<section id="practice" class="tab">
+<div class="card"><h2>🎯 Интерактивті жаттығу</h2><p>Есепті шығар да, жауабыңды енгіз.</p>
+<div id="taskBox" class="rule">101₂ + 010₂ = ?</div><br><input id="ans" placeholder="Мысалы: 111"><button class="btn2" onclick="checkPractice()">Тексеру</button><div class="feedback" id="pf"></div><br><button class="btn2" onclick="newTask()">Келесі есеп</button></div>
+<div class="card"><h3>Прогресс</h3><div class="progress"><div class="bar" id="bar"></div></div><p id="progText">0 / 5 дұрыс</p></div>
+</section>
+
+<section id="test" class="tab">
+<div class="card"><h2>🧠 Қорытынды тест</h2><div id="testArea"></div><button class="btn2" onclick="finishTest()">Нәтижені көрсету</button><div id="testResult" class="score"></div></div>
+</section>
+</main>
+<footer>Материал PDF-дегі «Екілік санау жүйесіндегі қосу және азайту ережелері» тақырыбы негізінде интерактивті форматқа бейімделді.</footer>
+<script>
+let totalScore=0, practiceRight=0, taskIndex=0;
+const tasks=[
+["101","010","111"],["110","101","1011"],["111","010","101"],["1100","0111","0101"],["1011","0011","1110"]
+];
+function showTab(id){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0)}
+function addScore(n){totalScore+=n;document.getElementById('score').textContent=totalScore+" ұпай"}
+function answer(el,ok,id){let p=el.parentElement;p.querySelectorAll('.option').forEach(b=>b.disabled=true);el.classList.add(ok?'correct':'wrong');document.getElementById('f'+id).textContent=ok?'Дұрыс! +1 ұпай':'Қате. Дұрыс жауапты қайта қарап көр.';if(ok)addScore(1)}
+function newTask(){taskIndex=(taskIndex+1)%tasks.length;let t=tasks[taskIndex];document.getElementById('taskBox').textContent=t[0]+"₂ + "+t[1]+"₂ = ?";document.getElementById('ans').value='';document.getElementById('pf').textContent=''}
+function checkPractice(){let t=tasks[taskIndex],v=document.getElementById('ans').value.trim().replace(/₂/g,'');let f=document.getElementById('pf');if(v===t[2]){f.textContent="Дұрыс! 🎉";f.style.color="var(--ok)";if(!t.done){t.done=true;practiceRight++;addScore(2)}document.getElementById('progText').textContent=practiceRight+" / 5 дұрыс";document.getElementById('bar').style.width=(practiceRight/5*100)+"%"}else{f.textContent="Қате. Оңнан солға қарай есептеп көр.";f.style.color="var(--bad)"}}
+const qs=[
+["1 + 1 екілік жүйеде неге тең?",["10","11","2"],0],
+["111₂ − 101₂ нәтижесі?",["010₂","001₂","110₂"],0],
+["Екілік жүйеде қандай цифрлар қолданылады?",["0 және 1","0,1,2","1 және 2"],0],
+["1 + 1 + 1 нәтижесі?",["10","11","111"],1],
+["Қарызға алынған 1 төменгі разрядта неше бірлікке тең?",["1","2","10"],1]
+];
+function buildTest(){let a=document.getElementById('testArea');a.innerHTML=qs.map((q,i)=>`<div class="card quiz"><h3>${i+1}. ${q[0]}</h3>${q[1].map((o,j)=>`<button class="option tq${i}" onclick="pickTest(${i},${j},this)">${o}</button>`).join('')}<div class="feedback" id="tf${i}"></div></div>`).join('')}
+let picks={};
+function pickTest(i,j,el){picks[i]=j;el.parentElement.querySelectorAll('.option').forEach(x=>x.style.borderColor='');el.style.borderColor='#4f46e5'}
+function finishTest(){let c=0;qs.forEach((q,i)=>{if(picks[i]===q[2])c++});document.getElementById('testResult').textContent=`Нәтиже: ${c} / ${qs.length}`;addScore(c)}
+buildTest();
+</script>
+</body></html>
